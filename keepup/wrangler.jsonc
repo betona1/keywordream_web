@@ -1,0 +1,41 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "keepup-site",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true },
+  // 커스텀 도메인 — main 배포와 동일하게 존 연결 후 활성화 (SETUP.md 1단계)
+  "routes": [{ "pattern": "keepup.keywordream.com", "custom_domain": true }],
+  // ⚠️ D1/KV는 main(keywordream-main)과 '같은 리소스'를 바인딩한다 — 회원/세션 공유(SSO)
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "keywordream-db",
+      "database_id": "6b4b480a-5403-41a5-984b-fff16b9dc3f1"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS",
+      "id": "c117befb681c47459cfae095489a1253"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      // TODO(SETUP.md 2단계): `wrangler r2 bucket create keepup-media` (결제수단 등록 필요, 10GB까지 무료)
+      "bucket_name": "keepup-media"
+    }
+  ],
+  "vars": {
+    "SITE_URL": "https://keepup.keywordream.com",
+    // 로그인 페이지가 있는 메인 사이트 (SSO 진입점)
+    "MAIN_URL": "https://keywordream.com",
+    // 로그아웃 시 .keywordream.com 쿠키를 지우기 위해 main과 동일하게 설정
+    "COOKIE_DOMAIN": ".keywordream.com"
+  }
+}

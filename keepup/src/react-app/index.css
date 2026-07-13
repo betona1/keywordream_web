@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* ── KeepUp 색상 시스템 — main(keywordream.com)과 동일 토큰 ────────
+ * brand : 인디고(#4C6EF5, 앱 시드 컬러와 동일)   stamp : 도장 인주색(시그니처) */
+@theme {
+  --color-paper: #f7f8fc;
+  --color-card: #ffffff;
+  --color-ink: #1c2333;
+  --color-muted: #5b6472;
+  --color-line: #e4e7ee;
+  --color-brand: #4c6ef5;
+  --color-brand-deep: #3b5bdb;
+  --color-stamp: #e8503a;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+}

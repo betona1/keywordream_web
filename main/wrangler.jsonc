@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "keywordream-main",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    // /api/* 는 SPA 폴백보다 워커가 먼저 처리 (OAuth 리다이렉트 등 내비게이션 요청 포함)
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true },
+  // 커스텀 도메인 — Cloudflare에 keywordream.com 존(네임서버) 연결 후 배포하면 자동 활성화 (SETUP.md 1단계)
+  "routes": [
+    { "pattern": "keywordream.com", "custom_domain": true },
+    { "pattern": "www.keywordream.com", "custom_domain": true }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "keywordream-db",
+      "database_id": "6b4b480a-5403-41a5-984b-fff16b9dc3f1",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS",
+      "id": "c117befb681c47459cfae095489a1253"
+    }
+  ],
+  "vars": {
+    "SITE_URL": "https://keywordream.com",
+    // 세션 쿠키를 서브도메인(keepup.keywordream.com)과 공유하기 위한 도메인
+    "COOKIE_DOMAIN": ".keywordream.com",
+    // 이 이메일로 로그인(이메일/구글/네이버)하면 자동으로 admin 역할
+    "ADMIN_EMAIL": "netkjy@gmail.com",
+    // 이메일 로그인 발신 주소 (Resend 인증 도메인 — 현재 exansys.net 계정 공용, 키 아님)
+    "EMAIL_FROM": "keywordream <login@exansys.net>"
+  }
+  // ⚠️ OAuth 키/시크릿은 여기(코드)에 넣지 않는다. 전부 환경변수로만 관리:
+  //   프로덕션: wrangler secret put <이름>  (Cloudflare에 암호화 저장)
+  //   로컬 개발: .dev.vars 파일 (git 제외, .env 역할)
+  // 대상: GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / KAKAO_CLIENT_ID / KAKAO_CLIENT_SECRET
+  //       NAVER_CLIENT_ID / NAVER_CLIENT_SECRET / RESEND_API_KEY / TURNSTILE_SITE_KEY / TURNSTILE_SECRET_KEY
+}
