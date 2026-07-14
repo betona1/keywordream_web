@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.keywordream.keepup",
+      "sha256_cert_fingerprints": [
+        "D8:45:78:CA:FF:05:E3:E9:86:DA:D1:78:B1:9A:32:F2:6D:11:3C:9E:59:F9:14:83:A3:9B:02:A0:A4:E3:A8:F4"
+      ]
+    }
+  }
+]
