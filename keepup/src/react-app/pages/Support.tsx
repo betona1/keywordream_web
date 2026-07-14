@@ -29,11 +29,11 @@ export default function Support() {
       <p className="mt-2 text-sm text-muted">궁금한 점이 있으면 먼저 FAQ를 확인해 주세요.</p>
 
       <a
-        href="mailto:contact@keywordream.com"
+        href="mailto:netkjy@gmail.com"
         className="mt-6 block rounded-3xl border border-line bg-card p-6 text-center transition hover:border-brand"
       >
         <p className="text-xs font-bold text-muted">이메일 문의</p>
-        <p className="mt-1 text-lg font-extrabold text-brand">contact@keywordream.com</p>
+        <p className="mt-1 text-lg font-extrabold text-brand">netkjy@gmail.com</p>
       </a>
 
       <section className="mt-10">

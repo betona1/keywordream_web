@@ -3,7 +3,7 @@ export default function Terms() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-2xl font-extrabold tracking-tight">이용약관</h1>
-      <p className="mt-2 text-xs text-muted">시행일: 2026-__-__ (초안)</p>
+      <p className="mt-2 text-xs text-muted">시행일: 2026년 7월 14일</p>
 
       <div className="mt-8 space-y-8 text-[15px] leading-relaxed">
         <section>
@@ -35,7 +35,7 @@ export default function Terms() {
         <section>
           <h2 className="mb-2 text-lg font-extrabold">4. 문의</h2>
           <p className="text-muted">
-            약관 관련 문의: <b className="text-ink">contact@keywordream.com</b> (TODO: 확정)
+            약관 관련 문의: <b className="text-ink">netkjy@gmail.com</b> (TODO: 확정)
           </p>
         </section>
       </div>

@@ -39,6 +39,16 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
   const [token, setToken] = useState("");
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
+  const [agree, setAgree] = useState(false); // 개인정보 수집·이용 동의 (필수)
+
+  const requireAgree = (e: React.MouseEvent | React.FormEvent) => {
+    if (!agree) {
+      e.preventDefault();
+      setMsg("개인정보 수집·이용에 동의해 주세요 (필수)");
+      return false;
+    }
+    return true;
+  };
 
   const goNext = () => {
     if (next.startsWith("/")) navigate(next, { replace: true });
@@ -65,6 +75,7 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
 
   const sendCode = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!requireAgree(e)) return;
     if (siteKey && !token) {
       setMsg("스팸 방지 확인을 완료해 주세요.");
       return;
@@ -140,7 +151,32 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
           </p>
         )}
 
-        <div className="mt-7 space-y-2.5">
+        {/* 개인정보 수집·이용 동의 (필수) — 가입 시점 명시적 동의 */}
+        <label className="mt-6 flex cursor-pointer items-start gap-2.5 rounded-xl border border-line bg-paper px-4 py-3">
+          <input
+            type="checkbox"
+            checked={agree}
+            onChange={(e) => {
+              setAgree(e.target.checked);
+              if (e.target.checked) setMsg("");
+            }}
+            className="mt-0.5 h-4 w-4 accent-brand"
+          />
+          <span className="text-xs leading-relaxed text-muted">
+            <b className="text-ink">[필수]</b> 회원 식별 정보(닉네임·프로필·이메일)의 수집·이용에
+            동의합니다.{" "}
+            <a
+              href="https://keepup.keywordream.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-ink"
+            >
+              개인정보처리방침 보기
+            </a>
+          </span>
+        </label>
+
+        <div className="mt-4 space-y-2.5">
           {providers.map((p) => {
             const s = SOCIAL[p];
             if (!s) return null;
@@ -148,7 +184,10 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
               <a
                 key={p}
                 href={`/api/auth/${p}/start${nextQuery}`}
-                className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold transition ${s.cls}`}
+                onClick={requireAgree}
+                className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold transition ${s.cls} ${
+                  agree ? "" : "opacity-45"
+                }`}
               >
                 <span className="grid h-5 w-5 place-items-center rounded text-[10px] font-extrabold">
                   {s.icon}

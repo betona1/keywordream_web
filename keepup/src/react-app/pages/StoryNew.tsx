@@ -25,6 +25,7 @@ export default function StoryNew({
   const [achievedPercent, setAchievedPercent] = useState("");
   const [body, setBody] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+  const [agreePublish, setAgreePublish] = useState(false); // 서버 저장·공개 동의 (필수)
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -57,6 +58,10 @@ export default function StoryNew({
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!agreePublish) {
+      setMsg("게시물 저장·공개에 대한 동의가 필요합니다 (필수)");
+      return;
+    }
     setBusy(true);
     setMsg("");
     const fd = new FormData();
@@ -232,6 +237,27 @@ export default function StoryNew({
           </div>
           <p className="mt-1.5 text-[11px] text-muted">JPG/PNG/WebP · 장당 최대 {MAX_IMAGE_MB}MB</p>
         </div>
+
+        {/* 서버 저장·공개 동의 (필수) — 게시 시점 명시적 동의 */}
+        <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-line bg-paper px-4 py-3">
+          <input
+            type="checkbox"
+            checked={agreePublish}
+            onChange={(e) => {
+              setAgreePublish(e.target.checked);
+              if (e.target.checked) setMsg("");
+            }}
+            className="mt-0.5 h-4 w-4 accent-brand"
+          />
+          <span className="text-xs leading-relaxed text-muted">
+            <b className="text-ink">[필수]</b> 작성한 글·사진이 서버에 저장되어{" "}
+            <b className="text-ink">누구나 볼 수 있게 공개</b>되는 것에 동의합니다. 게시물은 언제든
+            직접 삭제할 수 있습니다.{" "}
+            <a href="/privacy" target="_blank" className="underline hover:text-ink">
+              개인정보처리방침
+            </a>
+          </span>
+        </label>
 
         {msg && <p className="text-sm font-semibold text-stamp">{msg}</p>}
 
