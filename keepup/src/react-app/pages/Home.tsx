@@ -51,12 +51,12 @@ export default function Home() {
           습관 인증 앱. <b className="text-ink">63일 뒤엔 도장으로 가득 찬 기록만 남습니다.</b>
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <span
-            className="cursor-default rounded-2xl bg-ink px-6 py-3.5 text-sm font-bold text-white opacity-80"
-            title="Google Play 출시 준비 중"
+          <a
+            href="https://github.com/betona1/keepup/releases/latest/download/KeepUp.apk"
+            className="rounded-2xl bg-ink px-6 py-3.5 text-sm font-bold text-white hover:bg-brand"
           >
-            ▶ Google Play — 출시 준비 중
-          </span>
+            ⬇ 안드로이드 앱 다운로드 (APK)
+          </a>
           <Link
             to="/stories"
             className="rounded-2xl border border-line bg-card px-6 py-3.5 text-sm font-bold hover:border-brand"
@@ -64,7 +64,9 @@ export default function Home() {
             성과 게시판 구경하기 →
           </Link>
         </div>
-        <p className="mt-3 text-xs text-muted">iOS는 안드로이드 출시 후 준비합니다.</p>
+        <p className="mt-3 text-xs text-muted">
+          Android 8.0 이상 · Google Play 출시 준비 중 · iOS는 이후 지원
+        </p>
       </section>
 
       {/* 기능 */}
