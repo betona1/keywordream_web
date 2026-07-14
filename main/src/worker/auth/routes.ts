@@ -6,7 +6,12 @@ import { users } from "../../db/schema";
 import type { Env, Role } from "../types";
 import { ok, err } from "../types";
 import { enabledProviders, getProvider, type ProviderName } from "./providers";
-import { createSession, destroySession, readSession } from "./session";
+import {
+  createSession,
+  createSessionToken,
+  destroySession,
+  readSession,
+} from "./session";
 import { emailAuthRoutes } from "./email";
 
 const STATE_COOKIE = "oauth_state";
@@ -175,4 +180,17 @@ authRoutes.get("/me", async (c) => {
 authRoutes.post("/logout", async (c) => {
   await destroySession(c);
   return c.json(ok({ loggedOut: true }));
+});
+
+// KeepUp 앱 전용 — WebView 로그인 완료 후 앱이 이 JSON에서 장기 토큰을 읽어간다
+// (앱은 이후 Cookie: session=<token> 헤더로 API 사용)
+authRoutes.get("/apptoken", async (c) => {
+  const sess = await readSession(c);
+  if (!sess) return c.json(err("unauthorized"), 401);
+  const token = await createSessionToken(
+    c.env,
+    sess,
+    90 * 24 * 60 * 60, // 앱은 90일 유지
+  );
+  return c.json(ok({ token }));
 });

@@ -24,14 +24,24 @@ function cookieOpts(env: Env) {
   };
 }
 
+/// KV에 세션 레코드만 생성하고 토큰을 반환 (쿠키 미발급 — 앱 토큰 용도)
+export async function createSessionToken(
+  env: Env,
+  user: SessionUser,
+  ttlSeconds: number = TTL_SECONDS,
+): Promise<string> {
+  const token = randomToken();
+  await env.SESSIONS.put(`sess:${token}`, JSON.stringify(user), {
+    expirationTtl: ttlSeconds,
+  });
+  return token;
+}
+
 export async function createSession<E extends HonoEnv & { Bindings: Env }>(
   c: Context<E>,
   user: SessionUser,
 ): Promise<void> {
-  const token = randomToken();
-  await c.env.SESSIONS.put(`sess:${token}`, JSON.stringify(user), {
-    expirationTtl: TTL_SECONDS,
-  });
+  const token = await createSessionToken(c.env, user);
   setCookie(c, COOKIE, token, { ...cookieOpts(c.env), maxAge: TTL_SECONDS });
 }
 
