@@ -9,11 +9,10 @@ export default function Privacy() {
         <section>
           <h2 className="mb-2 text-lg font-extrabold">1. KeepUp 앱 — 개인정보를 수집하지 않습니다</h2>
           <p className="text-muted">
-            KeepUp 앱은 회원가입과 서버가 없는 앱입니다. 루틴, 인증 사진·동영상·음성 녹음, 걸음수,
+            KeepUp 앱은 회원가입과 서버가 없는 앱입니다. 루틴, 인증 사진·동영상·음성 녹음,
             메모 등 모든 데이터는 <b className="text-ink">사용자의 기기 안에만 저장</b>되며, 운영자를
-            포함한 누구에게도 전송되지 않습니다. 걸음수는 기기의 헬스커넥트(삼성헬스 등)에서
-            사용자가 권한을 허용한 경우에만 읽어오며, 역시 기기 밖으로 나가지 않습니다.
-            앱을 삭제하면 데이터도 함께 삭제됩니다.
+            포함한 누구에게도 전송되지 않습니다. 앱을 삭제하면 데이터도 함께 삭제됩니다.
+            (안드로이드 자동 백업을 켜두면 사용자 본인의 구글 계정에만 백업됩니다.)
           </p>
         </section>
 
@@ -70,9 +69,22 @@ export default function Privacy() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-lg font-extrabold">7. 문의처 (개인정보 보호책임자)</h2>
+          <h2 className="mb-2 text-lg font-extrabold">7. 앱 권한 안내 (Android)</h2>
+          <ul className="list-disc space-y-1 pl-5 text-muted">
+            <li><b className="text-ink">카메라·사진</b>: 습관 인증 사진·동영상 촬영/선택 (기기 내 저장)</li>
+            <li><b className="text-ink">마이크</b>: 발음 연습 등 음성 녹음 인증 (기기 내 저장)</li>
+            <li><b className="text-ink">알림·정확한 알람</b>: 마감 전 리마인더 발송</li>
+            <li><b className="text-ink">인터넷</b>: '오늘의 명언' 갱신, 웹 계정 로그인(선택) 시에만 사용</li>
+          </ul>
+          <p className="mt-2 text-muted">모든 미디어는 서버로 전송되지 않고 기기 안에만 저장됩니다.</p>
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-lg font-extrabold">8. 발행자 및 문의처</h2>
           <p className="text-muted">
-            keywordream 운영자 · 이메일: <b className="text-ink">netkjy@gmail.com</b>
+            앱 제공자: <b className="text-ink">EXANSYS (엑사엔시스)</b> · 브랜드: keywordream
+            <br />
+            개인정보 보호책임자 문의: <b className="text-ink">netkjy@gmail.com</b>
           </p>
           <p className="mt-2 text-xs text-muted">
             본 방침이 변경되는 경우 이 페이지를 통해 공지하며, 중요한 변경은 시행 7일 전에 안내합니다.
