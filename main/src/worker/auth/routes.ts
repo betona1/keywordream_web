@@ -208,3 +208,89 @@ authRoutes.get("/appredirect", async (c) => {
   const token = await createSessionToken(c.env, sess, 90 * 24 * 60 * 60);
   return c.redirect(`logchallenge://auth?token=${encodeURIComponent(token)}`);
 });
+
+// 앱 네이티브 구글 로그인 — 기기 계정으로 받은 Google idToken을 검증하고 앱 세션 토큰을 발급한다.
+// (크롬/브라우저 없이 기기 구글계정으로 '원탭' 로그인 — google_sign_in에서 받은 idToken을 보냄)
+authRoutes.post("/google/native", async (c) => {
+  const body = await c.req.json().catch(() => null);
+  const idToken = (body?.idToken as string | undefined)?.trim();
+  if (!idToken) return c.json(err("missing_id_token"), 400);
+  try {
+    // Google 발급 idToken 검증 (aud/iss 확인)
+    const res = await fetch(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`,
+    );
+    if (!res.ok) return c.json(err("invalid_token"), 401);
+    const info = (await res.json()) as {
+      aud?: string;
+      iss?: string;
+      sub?: string;
+      email?: string;
+      name?: string;
+      picture?: string;
+    };
+    if (info.aud !== c.env.GOOGLE_CLIENT_ID) return c.json(err("aud_mismatch"), 401);
+    if (info.iss !== "accounts.google.com" && info.iss !== "https://accounts.google.com") {
+      return c.json(err("iss_mismatch"), 401);
+    }
+    if (!info.sub) return c.json(err("no_sub"), 401);
+
+    const profile = {
+      providerId: String(info.sub),
+      name: info.name || "Google 사용자",
+      avatarUrl: info.picture ?? null,
+      email: info.email ?? null,
+    };
+    const db = drizzle(c.env.DB);
+    const found = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.provider, "google"), eq(users.providerId, profile.providerId)))
+      .limit(1);
+    const isSeedAdmin =
+      !!profile.email &&
+      profile.email.toLowerCase() === c.env.ADMIN_EMAIL.toLowerCase();
+
+    let userId: number;
+    let role: Role;
+    if (found.length === 0) {
+      role = isSeedAdmin ? "admin" : "member";
+      const inserted = await db
+        .insert(users)
+        .values({
+          provider: "google",
+          providerId: profile.providerId,
+          email: profile.email,
+          name: profile.name,
+          avatarUrl: profile.avatarUrl,
+          role,
+          createdAt: new Date(),
+        })
+        .returning({ id: users.id });
+      userId = inserted[0].id;
+    } else {
+      userId = found[0].id;
+      role = isSeedAdmin && found[0].role !== "admin" ? "admin" : (found[0].role as Role);
+      await db
+        .update(users)
+        .set({
+          name: profile.name,
+          avatarUrl: profile.avatarUrl,
+          email: profile.email,
+          role,
+          deletedAt: null,
+        })
+        .where(eq(users.id, userId));
+    }
+
+    const token = await createSessionToken(
+      c.env,
+      { userId, provider: "google", name: profile.name, avatarUrl: profile.avatarUrl, role },
+      90 * 24 * 60 * 60,
+    );
+    return c.json(ok({ token }));
+  } catch (e) {
+    console.error("google native login error", e);
+    return c.json(err("server_error"), 500);
+  }
+});
