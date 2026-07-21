@@ -182,7 +182,7 @@ authRoutes.post("/logout", async (c) => {
   return c.json(ok({ loggedOut: true }));
 });
 
-// KeepUp 앱 전용 — WebView 로그인 완료 후 앱이 이 JSON에서 장기 토큰을 읽어간다
+// 앱 전용 — WebView 로그인 완료 후 앱이 이 JSON에서 장기 토큰을 읽어간다
 // (앱은 이후 Cookie: session=<token> 헤더로 API 사용)
 authRoutes.get("/apptoken", async (c) => {
   const sess = await readSession(c);
@@ -193,4 +193,18 @@ authRoutes.get("/apptoken", async (c) => {
     90 * 24 * 60 * 60, // 앱은 90일 유지
   );
   return c.json(ok({ token }));
+});
+
+// 앱 전용 (Custom Tab 방식) — 로그인 완료 후 커스텀 스킴으로 토큰을 앱에 돌려준다.
+// 크롬 Custom Tab(flutter_web_auth_2)에서 열리며, logchallenge://auth?token=... 로 리다이렉트하면
+// 앱이 이를 가로채 토큰을 저장한다. (WebView가 아니라 크롬이라 구글 OAuth 정상 작동)
+authRoutes.get("/appredirect", async (c) => {
+  const sess = await readSession(c);
+  // 로그인 안 됐으면 로그인 페이지로 (돌아오면 다시 여기로)
+  if (!sess) {
+    const self = `${c.env.SITE_URL}/api/auth/appredirect`;
+    return c.redirect(`${c.env.SITE_URL}/login?next=${encodeURIComponent(self)}`);
+  }
+  const token = await createSessionToken(c.env, sess, 90 * 24 * 60 * 60);
+  return c.redirect(`logchallenge://auth?token=${encodeURIComponent(token)}`);
 });
