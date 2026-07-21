@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import Guide from "./pages/Guide";
 import Stories from "./pages/Stories";
 import StoryDetail from "./pages/StoryDetail";
 import StoryNew from "./pages/StoryNew";
@@ -19,6 +20,7 @@ export default function App() {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/guide" element={<Guide />} />
           <Route path="/stories" element={<Stories me={me} loading={loading} mainUrl={mainUrl} />} />
           <Route path="/stories/new" element={<StoryNew me={me} loading={loading} mainUrl={mainUrl} />} />
           <Route path="/stories/:id" element={<StoryDetail me={me} mainUrl={mainUrl} />} />

@@ -89,6 +89,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 스크린샷 쇼케이스 */}
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <h2 className="text-center text-2xl font-extrabold tracking-tight">
+          앱 속을 미리 둘러보세요
+        </h2>
+        <p className="mt-3 text-center text-sm text-muted">
+          선언하고 · 인증하고 · 도장으로 남기는 흐름
+        </p>
+        <div className="mt-10 flex flex-wrap items-start justify-center gap-5">
+          {[
+            { src: "/guide/home.png", cap: "오늘의 루틴" },
+            { src: "/guide/certify.png", cap: "사진·타이머 인증" },
+            { src: "/guide/calendar.png", cap: "도장 달력" },
+          ].map((s) => (
+            <div key={s.src} className="w-[180px] text-center">
+              <div className="overflow-hidden rounded-[1.8rem] border-[6px] border-[#171a20] bg-[#171a20] shadow-[0_20px_44px_-18px_rgba(20,30,60,.5)]">
+                <img src={s.src} alt={s.cap} className="block w-full" loading="lazy" />
+              </div>
+              <p className="mt-3 text-xs font-bold text-muted">{s.cap}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-9 text-center">
+          <Link
+            to="/guide"
+            className="inline-block rounded-2xl border border-line bg-card px-6 py-3 text-sm font-bold hover:border-brand"
+          >
+            사용 가이드 자세히 보기 →
+          </Link>
+        </div>
+      </section>
+
       {/* 63일 규칙 */}
       <section className="mx-auto max-w-5xl px-4 py-16">
         <div className="rounded-3xl bg-brand px-8 py-12 text-center text-white sm:px-16">

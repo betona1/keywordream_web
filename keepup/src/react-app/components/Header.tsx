@@ -24,6 +24,9 @@ export default function Header({
           </span>
         </Link>
         <nav className="flex items-center gap-4 text-sm">
+          <Link to="/guide" className="hidden font-semibold text-muted hover:text-ink sm:block">
+            사용 가이드
+          </Link>
           <Link to="/stories" className="font-semibold text-muted hover:text-ink">
             성과 게시판
           </Link>
