@@ -1,7 +1,7 @@
-/** KeepUp 시그니처 — 인주색 도장 마크 */
+/** Log Challenge 시그니처 — 인주색 도장 마크 */
 export default function Stamp({
   size = 64,
-  label = "KEEP\nUP!",
+  label = "LOG\nUP!",
   className = "",
 }: {
   size?: number;

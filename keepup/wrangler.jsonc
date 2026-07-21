@@ -8,8 +8,11 @@
     "run_worker_first": ["/api/*"]
   },
   "observability": { "enabled": true },
-  // 커스텀 도메인 — main 배포와 동일하게 존 연결 후 활성화 (SETUP.md 1단계)
-  "routes": [{ "pattern": "keepup.keywordream.com", "custom_domain": true }],
+  // 커스텀 도메인 — 신규 브랜드 log.keywordream.com을 기본으로, 기존 keepup은 호환 유지(앱 v1.1.0 링크 보존)
+  "routes": [
+    { "pattern": "log.keywordream.com", "custom_domain": true },
+    { "pattern": "keepup.keywordream.com", "custom_domain": true }
+  ],
   // ⚠️ D1/KV는 main(keywordream-main)과 '같은 리소스'를 바인딩한다 — 회원/세션 공유(SSO)
   "d1_databases": [
     {
@@ -32,7 +35,7 @@
     }
   ],
   "vars": {
-    "SITE_URL": "https://keepup.keywordream.com",
+    "SITE_URL": "https://log.keywordream.com",
     // 로그인 페이지가 있는 메인 사이트 (SSO 진입점)
     "MAIN_URL": "https://keywordream.com",
     // 로그아웃 시 .keywordream.com 쿠키를 지우기 위해 main과 동일하게 설정

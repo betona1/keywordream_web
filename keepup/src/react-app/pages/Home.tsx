@@ -1,4 +1,4 @@
-// KeepUp 홍보 홈 — 앱 소개 + 다운로드(출시 예정) + 도장 시그니처
+// Log Challenge 홍보 홈 — 앱 소개 + 다운로드(출시 예정) + 도장 시그니처
 import { Link } from "react-router-dom";
 import Stamp from "../components/Stamp";
 
@@ -94,7 +94,7 @@ export default function Home() {
         <div className="rounded-3xl bg-brand px-8 py-12 text-center text-white sm:px-16">
           <h2 className="text-2xl font-extrabold tracking-tight">왜 63일일까요?</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/85">
-            습관이 몸에 붙는 데 평균 66일이 걸린다는 연구가 있습니다. KeepUp은 9주,
+            습관이 몸에 붙는 데 평균 66일이 걸린다는 연구가 있습니다. Log Challenge는 9주,
             63일을 한 시즌으로 봅니다. 하루하루의 도장이 모여 시즌이 끝나면 —
             그 기록이 곧 다음 시즌을 시작할 이유가 됩니다.
           </p>

@@ -16,10 +16,11 @@ export default function Header({
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-card/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2" aria-label="KeepUp 홈">
+        <Link to="/" className="flex items-center gap-2" aria-label="로그챌린지 (Log Challenge) 홈">
           <Stamp size={30} label="UP!" />
           <span className="text-lg font-extrabold tracking-tight">
-            Keep<span className="text-brand">Up</span>
+            <span className="text-stamp">Log</span>
+            <span className="text-brand">Challenge</span>
           </span>
         </Link>
         <nav className="flex items-center gap-4 text-sm">
