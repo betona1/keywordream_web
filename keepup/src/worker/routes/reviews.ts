@@ -32,6 +32,15 @@ reviewRoutes.post("/reviews", async (c) => {
   return c.json(ok({ id }));
 });
 
+// 의견 삭제 — 관리자만
+reviewRoutes.delete("/reviews/:id", async (c) => {
+  const sess = await readSession(c);
+  if (!sess || sess.role !== "admin") return c.json(err("forbidden"), 403);
+  const id = c.req.param("id");
+  await c.env.SESSIONS.delete(`review:${id}`);
+  return c.json(ok({ deleted: true }));
+});
+
 // 의견 목록 (최신순)
 reviewRoutes.get("/reviews", async (c) => {
   const list = await c.env.SESSIONS.list({ prefix: "review:", limit: 300 });

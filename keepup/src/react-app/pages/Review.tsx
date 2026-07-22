@@ -52,6 +52,7 @@ export default function Review() {
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   async function load() {
     try {
@@ -65,8 +66,29 @@ export default function Review() {
     }
   }
 
+  async function checkAdmin() {
+    try {
+      const res = await fetch("/api/auth/me");
+      const json = await res.json();
+      setIsAdmin(json?.data?.user?.role === "admin");
+    } catch {
+      /* 무시 */
+    }
+  }
+
+  async function remove(id: string) {
+    if (!confirm("이 의견을 삭제할까요?")) return;
+    try {
+      const res = await fetch(`/api/reviews/${id}`, { method: "DELETE" });
+      if (res.ok) setList((prev) => prev.filter((r) => r.id !== id));
+    } catch {
+      /* 무시 */
+    }
+  }
+
   useEffect(() => {
     load();
+    checkAdmin();
   }, []);
 
   async function submit(e: React.FormEvent) {
@@ -169,9 +191,20 @@ export default function Review() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-ink">{r.author}</span>
-                  <span className="text-xs text-muted">
-                    {timeAgo(r.createdAt)}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted">
+                      {timeAgo(r.createdAt)}
+                    </span>
+                    {isAdmin && (
+                      <button
+                        type="button"
+                        onClick={() => remove(r.id)}
+                        className="rounded-md px-2 py-0.5 text-xs font-bold text-stamp hover:bg-stamp/10"
+                      >
+                        삭제
+                      </button>
+                    )}
+                  </div>
                 </div>
                 {r.rating ? (
                   <div className="mt-1">
