@@ -8,6 +8,7 @@ import { readSession, destroySession } from "./session";
 import { postRoutes } from "./routes/posts";
 import { mediaRoutes } from "./routes/media";
 import { quoteRoutes } from "./routes/quotes";
+import { reviewRoutes } from "./routes/reviews";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -42,6 +43,7 @@ app.post("/api/auth/logout", async (c) => {
 app.route("/api", postRoutes);
 app.route("/api", mediaRoutes);
 app.route("/api", quoteRoutes);
+app.route("/api", reviewRoutes);
 
 app.notFound((c) => c.json(err("not_found"), 404));
 
