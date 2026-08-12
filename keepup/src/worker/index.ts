@@ -9,6 +9,8 @@ import { postRoutes } from "./routes/posts";
 import { mediaRoutes } from "./routes/media";
 import { quoteRoutes } from "./routes/quotes";
 import { reviewRoutes } from "./routes/reviews";
+import { betaRoutes } from "./routes/beta";
+import { feedbackRoutes } from "./routes/feedback";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -44,6 +46,8 @@ app.route("/api", postRoutes);
 app.route("/api", mediaRoutes);
 app.route("/api", quoteRoutes);
 app.route("/api", reviewRoutes);
+app.route("/api", betaRoutes);
+app.route("/api", feedbackRoutes);
 
 app.notFound((c) => c.json(err("not_found"), 404));
 

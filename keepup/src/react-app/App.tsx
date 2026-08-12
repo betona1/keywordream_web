@@ -6,6 +6,9 @@ import Intro from "./components/Intro";
 import Home from "./pages/Home";
 import Guide from "./pages/Guide";
 import Review from "./pages/Review";
+import Beta from "./pages/Beta";
+import BetaAdmin from "./pages/BetaAdmin";
+import Feedback from "./pages/Feedback";
 import Stories from "./pages/Stories";
 import StoryDetail from "./pages/StoryDetail";
 import StoryNew from "./pages/StoryNew";
@@ -41,6 +44,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/beta" element={<Beta me={me} mainUrl={mainUrl} logout={logout} />} />
+          <Route path="/beta/manage" element={<BetaAdmin me={me} mainUrl={mainUrl} />} />
+          <Route path="/feedback" element={<Feedback me={me} mainUrl={mainUrl} />} />
           <Route path="/stories" element={<Stories me={me} loading={loading} mainUrl={mainUrl} />} />
           <Route path="/stories/new" element={<StoryNew me={me} loading={loading} mainUrl={mainUrl} />} />
           <Route path="/stories/:id" element={<StoryDetail me={me} mainUrl={mainUrl} />} />

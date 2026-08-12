@@ -15,6 +15,13 @@
       "when": 1783951310805,
       "tag": "0001_free_abomination",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1786551237798,
+      "tag": "0002_jittery_layla_miller",
+      "breakpoints": true
     }
   ]
 }

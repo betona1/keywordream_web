@@ -90,7 +90,7 @@ export const quotes = sqliteTable("quotes", {
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 });
 
-// 응원 — KeepUp 시그니처인 '도장 찍기' (1인 1스탬프)
+// 응원 — 로그챌린지 시그니처인 '도장 찍기' (1인 1스탬프)
 export const postCheers = sqliteTable(
   "post_cheers",
   {
@@ -104,4 +104,53 @@ export const postCheers = sqliteTable(
     createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   },
   (t) => [uniqueIndex("idx_post_cheers_unique").on(t.postId, t.userId)],
+);
+
+// 베타테스터 신청 (log.keywordream.com/beta)
+// Play 비공개 테스트는 테스터의 '구글 계정 이메일'을 콘솔에 등록해야 하므로,
+// 구글로 로그인한 계정의 이메일을 신청 시점에 그대로 복사해 둔다.
+// 이메일은 관리자만 조회할 수 있고 공개 목록에는 노출하지 않는다.
+export const betaTesters = sqliteTable(
+  "beta_testers",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    email: text("email").notNull(), // Play Console 등록용 (신청 당시 계정 이메일)
+    device: text("device"), // 기기 모델 (예: Galaxy S24)
+    note: text("note"), // 하고 싶은 말
+    status: text("status", { enum: ["pending", "approved", "rejected"] })
+      .notNull()
+      .default("pending"),
+    createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  },
+  (t) => [uniqueIndex("idx_beta_testers_user").on(t.userId)], // 1인 1신청
+);
+
+// 앱 개선사항 게시판 (log.keywordream.com/feedback)
+// 베타테스터·사용자가 버그·아이디어를 올리고, 관리자가 처리 상태와 답변을 남긴다.
+export const feedbackPosts = sqliteTable(
+  "feedback_posts",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    kind: text("kind", { enum: ["bug", "idea", "question"] }).notNull(),
+    title: text("title").notNull(),
+    body: text("body").notNull(),
+    appVersion: text("app_version"), // 예: 1.2.0
+    device: text("device"),
+    status: text("status", {
+      enum: ["open", "planned", "doing", "done", "wontfix"],
+    })
+      .notNull()
+      .default("open"),
+    adminReply: text("admin_reply"),
+    repliedAt: integer("replied_at", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+    deletedAt: integer("deleted_at", { mode: "timestamp" }),
+  },
+  (t) => [index("idx_feedback_created").on(t.createdAt)],
 );
