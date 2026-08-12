@@ -1,5 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // 계정 고정 — wrangler가 로그인 계정을 자동 추론하면 다른 계정(다른 프로젝트)으로 배포될 수 있다.
+  // netkjy@gmail.com's Account. 비밀값이 아니므로 커밋해도 무해하다.
+  "account_id": "58340c4743dcda7f81b6d11117eb4433",
   "name": "keywordream-main",
   "main": "src/worker/index.ts",
   "compatibility_date": "2026-06-01",

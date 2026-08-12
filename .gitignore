@@ -1,3 +1,4 @@
 # 로컬 개발 D1/KV 상태 (main·keepup 공유) — 커밋 금지
 .dev-state/
 node_modules/
+.env

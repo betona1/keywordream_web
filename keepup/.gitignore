@@ -6,3 +6,6 @@ dist/
 .wrangler/
 worker-configuration.d.ts
 *.tsbuildinfo
+scripts/.mock-images/
+scripts/.mock-seed.sql
+scripts/.existing-backup-*.json

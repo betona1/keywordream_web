@@ -1,5 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // 계정 고정 — main/wrangler.jsonc와 같은 계정이어야 D1·KV·R2를 공유한다 (netkjy@gmail.com's Account)
+  "account_id": "58340c4743dcda7f81b6d11117eb4433",
   "name": "keepup-site",
   "main": "src/worker/index.ts",
   "compatibility_date": "2026-06-01",

@@ -39,6 +39,17 @@ export type PostCard = {
   commentCount: number;
 };
 
+/** 게시판 전체 집계 — 히어로 숫자 스트립용 */
+export type BoardStats = { posts: number; certs: number; cheers: number };
+
+export type PostListResponse = {
+  posts: PostCard[];
+  total: number;
+  page: number;
+  pageSize: number;
+  stats: BoardStats;
+};
+
 export type PostDetail = Omit<PostCard, "coverKey" | "commentCount"> & {
   body: string;
   images: string[];
@@ -59,6 +70,9 @@ export const ROUTINE_TYPE_LABEL: Record<"stack" | "goal", string> = {
   stack: "적립형",
   goal: "결과형",
 };
+
+/** Google Play 정식 출시 주소 — 설치 QR(public/qr-play.svg)도 이 URL로 만들어져 있다 */
+export const PLAY_URL = "https://play.google.com/store/apps/details?id=com.keywordream.keepup";
 
 /** 메인 사이트 로그인으로 이동 (로그인 후 현재 페이지 복귀) */
 export function loginUrl(mainUrl: string, next?: string): string {

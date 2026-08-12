@@ -93,6 +93,19 @@ postRoutes.get("/posts", async (c) => {
   const cheerMap = new Map(cheerCounts.map((r) => [r.postId, r.count]));
   const commentMap = new Map(commentCounts.map((r) => [r.postId, r.count]));
 
+  // 히어로에 띄우는 게시판 전체 집계 — 현재 페이지가 아니라 삭제되지 않은 전체 기준
+  const [certRow, totalCheerRow] = await Promise.all([
+    db
+      .select({ sum: sql<number>`coalesce(sum(${posts.certCount}), 0)` })
+      .from(posts)
+      .where(notDeleted),
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(postCheers)
+      .innerJoin(posts, eq(postCheers.postId, posts.id))
+      .where(notDeleted),
+  ]);
+
   return c.json(
     ok({
       posts: rows.map((r) => ({
@@ -113,6 +126,11 @@ postRoutes.get("/posts", async (c) => {
       total: totalRow[0].count,
       page,
       pageSize: PAGE_SIZE,
+      stats: {
+        posts: totalRow[0].count,
+        certs: certRow[0].sum,
+        cheers: totalCheerRow[0].count,
+      },
     }),
   );
 });

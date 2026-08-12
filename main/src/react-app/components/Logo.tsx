@@ -1,5 +1,13 @@
-/** keywordream 로고 — 'K' 도장 마크 + 워드마크 */
-export default function Logo({ size = 32, wordmark = true }: { size?: number; wordmark?: boolean }) {
+/** keywordream 로고 — 'K' 도장 마크 + 워드마크 (light: 다크 배경용) */
+export default function Logo({
+  size = 32,
+  wordmark = true,
+  light = false,
+}: {
+  size?: number;
+  wordmark?: boolean;
+  light?: boolean;
+}) {
   return (
     <span className="inline-flex items-center gap-2">
       <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden>
@@ -18,7 +26,7 @@ export default function Logo({ size = 32, wordmark = true }: { size?: number; wo
       </svg>
       {wordmark && (
         <span className="text-lg font-extrabold tracking-tight">
-          keyword<span className="text-brand">ream</span>
+          keyword<span className={light ? "text-neon-2" : "text-brand"}>ream</span>
         </span>
       )}
     </span>

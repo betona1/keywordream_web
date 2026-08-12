@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 /* ── KeepUp 색상 시스템 — main(keywordream.com)과 동일 토큰 ────────
- * brand : 인디고(#4C6EF5, 앱 시드 컬러와 동일)   stamp : 도장 인주색(시그니처) */
+ * brand : 인디고(#4C6EF5, 앱 시드 컬러와 동일)   stamp : 도장 인주색(시그니처)
+ * night / neon : 성과 게시판 히어로 등 다크 존 전용 (main과 같은 값) */
 @theme {
   --color-paper: #f7f8fc;
   --color-card: #ffffff;
@@ -11,7 +12,27 @@
   --color-brand: #274ed5;
   --color-brand-deep: #1c3cae;
   --color-stamp: #b32a19;
+
+  --color-night: #0a1020;
+  --color-night-2: #070c1a;
+  --color-neon: #4da3ff;
+  --color-neon-2: #7de3ff;
+
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+
+  --animate-pulse-glow: pulse-glow 4.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
 }
 
 html {
@@ -20,4 +41,17 @@ html {
 
 body {
   @apply bg-paper text-ink font-sans antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

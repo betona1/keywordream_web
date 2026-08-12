@@ -1,4 +1,4 @@
-// 성과 게시글 상세 — 이미지 / 본문 / 응원(도장) / 댓글
+// 성과 게시글 상세 — 인증샷 갤러리 / 본문 / 응원(도장) / 댓글
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Stamp from "../components/Stamp";
@@ -13,6 +13,42 @@ import {
   type PostDetail,
 } from "../lib/api";
 
+/** 인증샷 원본 확대 보기 */
+function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 grid place-items-center bg-night-2/92 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="인증샷 크게 보기"
+    >
+      <img
+        src={src}
+        alt=""
+        className="max-h-[86vh] w-auto max-w-full rounded-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
+      <button
+        onClick={onClose}
+        className="mt-5 rounded-full border border-white/20 px-5 py-2 text-sm font-bold text-white/80 hover:border-white hover:text-white"
+      >
+        닫기 (Esc)
+      </button>
+    </div>
+  );
+}
+
 export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +57,8 @@ export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }
   const [notFound, setNotFound] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [busy, setBusy] = useState(false);
+  const [shot, setShot] = useState(0); // 갤러리에서 크게 보고 있는 인증샷
+  const [zoom, setZoom] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const res = await api<{ post: PostDetail; comments: Comment[] }>(`/api/posts/${id}`);
@@ -85,7 +123,7 @@ export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-12">
+    <main className="mx-auto max-w-4xl px-4 py-12">
       <Link to="/stories" className="text-sm font-semibold text-muted hover:text-ink">
         ← 성과 게시판
       </Link>
@@ -130,18 +168,40 @@ export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }
           )}
         </div>
 
-        {/* 이미지 */}
+        {/* 인증샷 갤러리 — 큰 사진 한 장 + 썸네일 스트립, 누르면 원본 확대 */}
         {post.images.length > 0 && (
-          <div className={`mt-6 grid gap-3 ${post.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
-            {post.images.map((k) => (
-              <img
-                key={k}
-                src={mediaUrl(k)}
-                alt=""
-                className="w-full rounded-2xl border border-line object-cover"
-              />
-            ))}
-          </div>
+          <figure className="mt-6">
+            <button
+              type="button"
+              onClick={() => setZoom(mediaUrl(post.images[shot]))}
+              className="block w-full cursor-zoom-in overflow-hidden rounded-2xl border border-line bg-ink"
+            >
+              <img src={mediaUrl(post.images[shot])} alt="" className="block w-full" />
+            </button>
+
+            {post.images.length > 1 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {post.images.map((k, i) => (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => setShot(i)}
+                    aria-label={`${i + 1}번째 인증샷 보기`}
+                    aria-current={i === shot}
+                    className={`h-16 w-20 overflow-hidden rounded-xl border-2 transition ${
+                      i === shot ? "border-brand" : "border-line opacity-65 hover:opacity-100"
+                    }`}
+                  >
+                    <img src={mediaUrl(k)} alt="" loading="lazy" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+            <figcaption className="mt-2 text-xs text-muted">
+              인증샷 {shot + 1}/{post.images.length} · 사진의 날짜·시각은 앱이 촬영 시점에 자동으로
+              찍습니다.
+            </figcaption>
+          </figure>
         )}
 
         <p className="mt-6 whitespace-pre-wrap text-[15px] leading-relaxed">{post.body}</p>
@@ -234,6 +294,8 @@ export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }
           </p>
         )}
       </section>
+
+      {zoom && <Lightbox src={zoom} onClose={() => setZoom(null)} />}
     </main>
   );
 }

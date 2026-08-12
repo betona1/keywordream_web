@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { PLAY_URL } from "../lib/api";
 
 // 로그챌린지 사용 가이드 — 실제 앱 스크린샷 + 단계별 설명
 const STEPS = [
@@ -112,10 +113,12 @@ export default function Guide() {
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://github.com/betona1/keepup/releases/latest/download/KeepUp.apk"
+              href={PLAY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-2xl bg-white px-6 py-3 text-sm font-bold text-brand hover:bg-white/90"
             >
-              ⬇ 안드로이드 앱 다운로드
+              Google Play에서 설치
             </a>
             <Link
               to="/stories"
