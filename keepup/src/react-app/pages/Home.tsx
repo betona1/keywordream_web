@@ -118,7 +118,7 @@ export default function Home() {
             </p>
             <h1 className="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl">
               습관을{" "}
-              <span className="bg-gradient-to-r from-[#ff7a5c] to-[#ff3d5e] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-stamp-accent to-stamp bg-clip-text text-transparent">
                 도장
               </span>
               으로
@@ -394,11 +394,62 @@ export default function Home() {
         </p>
       </section>
 
+      {/* ── 베타테스터 모집 (다크) ──────────────────────────────── */}
+      <section className="relative isolate overflow-hidden bg-night-2 text-white">
+        <NightBackdrop />
+        <div className="mx-auto max-w-5xl px-4 py-20">
+          <div className="rounded-3xl border border-stamp/30 bg-white/[0.03] p-8 sm:p-12">
+            <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
+              <div className="shrink-0">
+                <Stamp size={88} level={2} check />
+              </div>
+              <div className="flex-1">
+                <p className="mb-2 text-xs font-bold tracking-[0.2em] text-stamp-accent">
+                  BETA TESTER 모집
+                </p>
+                <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
+                  다음 버전을 먼저 써 보실 분
+                </h2>
+                <p className="mt-4 text-sm leading-relaxed text-white/65">
+                  정식 출시 전 기능을 먼저 쓰고, 고쳐야 할 점을 알려 주실 베타테스터를 찾습니다.
+                  <b className="font-bold text-white"> 구글 계정으로 로그인하고 신청</b>하면 끝입니다
+                  — Play 비공개 테스트는 구글 계정 이메일로 등록되기 때문입니다.
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-white/70">
+                  {["신규 기능 우선 사용", "의견이 다음 업데이트에 반영", "초기 테스터로 기록"].map(
+                    (t) => (
+                      <li key={t} className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1">
+                        {t}
+                      </li>
+                    ),
+                  )}
+                </ul>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Link
+                    to="/beta"
+                    className="rounded-2xl bg-gradient-to-r from-stamp to-stamp-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_32px_-6px_rgba(124,92,255,.7)] transition hover:brightness-110"
+                  >
+                    베타테스터 신청하기 →
+                  </Link>
+                  <Link
+                    to="/feedback"
+                    className="rounded-2xl border border-white/20 px-6 py-3.5 text-sm font-bold text-white/85 transition hover:border-stamp-accent hover:text-white"
+                  >
+                    개선사항 게시판
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="h-px bg-gradient-to-r from-transparent via-stamp/60 to-transparent" />
+      </section>
+
       {/* ── 마무리 CTA ──────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-4 pb-24">
         <div className="rounded-3xl bg-brand px-8 py-12 text-center text-white sm:px-16">
           <div className="mb-6 flex justify-center">
-            <Stamp size={80} className="border-white/70 text-white" />
+            <Stamp size={80} level={3} check />
           </div>
           <h2 className="text-2xl font-extrabold tracking-tight">오늘 하나만 해내면 됩니다</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/85">

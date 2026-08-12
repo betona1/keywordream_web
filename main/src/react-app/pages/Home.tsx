@@ -1,4 +1,4 @@
-// 브랜드 메인 랜딩 — 바브바브 다크 히어로 + 레벨 도감 + KeepUp 제품 카드
+// 브랜드 메인 랜딩 — 바브바브 다크 히어로 + 레벨 도감 + 로그챌린지 제품 카드
 import { useEffect, useState } from "react";
 
 /** 마스코트 바브바브(VAVEVAVE) 성장 단계 — 이미지 3장이 곧 Lv.1~3 도감 */
@@ -144,10 +144,10 @@ export default function Home() {
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <a
-                href="https://keepup.keywordream.com"
+                href="https://log.keywordream.com"
                 className="rounded-2xl bg-gradient-to-r from-neon to-neon-2 px-6 py-3.5 text-sm font-bold text-night shadow-[0_0_32px_-6px_rgba(77,163,255,.75)] transition hover:brightness-110"
               >
-                KeepUp 만나보기 →
+                로그챌린지 만나보기 →
               </a>
               <a
                 href="#vavevave"
@@ -244,26 +244,32 @@ export default function Home() {
         <div className="h-px bg-gradient-to-r from-transparent via-neon/55 to-transparent" />
       </section>
 
-      {/* ── 제품: KeepUp (라이트) ───────────────────────────────── */}
+      {/* ── 제품: 로그챌린지 (라이트) ───────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-4 pb-24 pt-20">
         <a
-          href="https://keepup.keywordream.com"
+          href="https://log.keywordream.com"
           className="group block rounded-3xl border border-line bg-card p-8 shadow-sm transition hover:border-brand hover:shadow-lg sm:p-12"
         >
           <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
-            {/* 도장 스탬프 시그니처 */}
+            {/* 도장 시그니처 — 앱 StampMark와 같은 구성(바브바브 얼굴 + 그라데이션 링, -8도 기울기) */}
             <div className="relative grid h-28 w-28 shrink-0 place-items-center rounded-2xl bg-brand/10">
-              <div className="grid h-20 w-20 rotate-[-8deg] place-items-center rounded-full border-4 border-stamp text-stamp transition group-hover:rotate-[-2deg]">
-                <span className="text-sm font-extrabold leading-tight tracking-tight">
-                  KEEP
-                  <br />
-                  UP!
+              <span
+                className="grid h-20 w-20 place-items-center rounded-full p-1.5 transition group-hover:rotate-[-2deg]"
+                style={{
+                  background: "linear-gradient(135deg, #7c5cff, #37b4ff)",
+                  boxShadow: "0 4px 14px rgba(124,92,255,.28)",
+                  transform: "rotate(-8deg)",
+                }}
+                aria-hidden
+              >
+                <span className="grid h-full w-full place-items-center overflow-hidden rounded-full bg-stamp-soft">
+                  <img src="/vave/face.webp" alt="" className="h-full w-full object-cover" />
                 </span>
-              </div>
+              </span>
             </div>
             <div className="flex-1">
               <div className="mb-2 flex items-center gap-2">
-                <h2 className="text-2xl font-extrabold tracking-tight">KeepUp</h2>
+                <h2 className="text-2xl font-extrabold tracking-tight">로그챌린지</h2>
                 <span className="rounded-full bg-stamp/10 px-2.5 py-0.5 text-xs font-bold text-stamp">
                   Google Play 출시
                 </span>
@@ -282,7 +288,7 @@ export default function Home() {
                 )}
               </ul>
               <p className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-brand group-hover:underline">
-                KeepUp 자세히 보기 →
+                로그챌린지 자세히 보기 →
               </p>
             </div>
           </div>

@@ -33,12 +33,12 @@ export default function Header({ me, loading }: { me: Me; loading: boolean }) {
         </Link>
         <nav className="flex items-center gap-4 text-sm">
           <a
-            href="https://keepup.keywordream.com"
+            href="https://log.keywordream.com"
             className={
               onNight ? "font-semibold text-white/70 hover:text-white" : "font-semibold text-muted hover:text-ink"
             }
           >
-            KeepUp
+            로그챌린지
           </a>
           {!loading &&
             (me ? (

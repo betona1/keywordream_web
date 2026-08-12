@@ -176,9 +176,32 @@ export default function Admin({ me, loading }: { me: Me; loading: boolean }) {
         </div>
       )}
 
-      {/* KeepUp 앱 '오늘의 명언' 관리 — 앱 내장 10개 + 여기서 추가한 것이 합쳐져 매일 순환 */}
+      {/* 베타테스터·개선사항은 게시판이 있는 log.keywordream.com에서 관리한다
+          (같은 도메인이라 세션 쿠키가 그대로 쓰이고, 이메일을 다른 사이트로 보내지 않는다) */}
+      <div className="mt-12 rounded-2xl border border-line bg-card p-5">
+        <h2 className="text-xl font-extrabold tracking-tight">베타테스터 · 개선사항</h2>
+        <p className="mt-1 text-sm text-muted">
+          신청 승인과 Play Console용 이메일 복사, 개선사항 답변은 로그챌린지 사이트에서 처리합니다.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a
+            href="https://log.keywordream.com/beta/manage"
+            className="rounded-xl bg-stamp px-4 py-2.5 text-sm font-bold text-white hover:brightness-110"
+          >
+            베타테스터 신청 관리 →
+          </a>
+          <a
+            href="https://log.keywordream.com/feedback"
+            className="rounded-xl border border-line px-4 py-2.5 text-sm font-bold hover:border-brand"
+          >
+            개선사항 게시판 →
+          </a>
+        </div>
+      </div>
+
+      {/* 로그챌린지 앱 '오늘의 명언' 관리 — 앱 내장 10개 + 여기서 추가한 것이 합쳐져 매일 순환 */}
       <div className="mt-12 flex items-end justify-between">
-        <h2 className="text-xl font-extrabold tracking-tight">명언 관리 (KeepUp 앱)</h2>
+        <h2 className="text-xl font-extrabold tracking-tight">명언 관리 (로그챌린지 앱)</h2>
         <p className="text-sm text-muted">{quotes.length}개 등록됨</p>
       </div>
       <p className="mt-1 text-xs text-muted">

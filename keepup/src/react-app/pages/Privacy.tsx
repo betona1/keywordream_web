@@ -69,6 +69,17 @@ function Ko() {
         <ul className="mt-2 list-disc space-y-1 pl-5 text-muted">
           <li><b className="text-ink">[필수] 회원 식별 정보</b>: 소셜 로그인 제공자(구글/카카오/네이버) 식별자, 닉네임, 프로필 이미지, (제공자가 전달하는 경우) 이메일 / 이메일 로그인 시 이메일 주소</li>
           <li><b className="text-ink">[선택·게시 시 동의] 게시 콘텐츠</b>: 성과 게시판에 사용자가 직접 올리는 글, 사진, 루틴 정보, 댓글, 응원 기록 — <b className="text-ink">게시물 작성 시 별도 동의를 받으며, 서버에 저장되고 누구나 볼 수 있게 공개됩니다</b></li>
+          <li>
+            <b className="text-ink">[선택·신청 시 동의] 베타테스터 신청 정보</b>: 구글 계정 이메일 주소, (직접 입력 시) 사용 기기 정보와 남긴 메모 —{" "}
+            <b className="text-ink">
+              Google Play 비공개 테스트에 테스터로 등록하기 위해 구글 계정 이메일이 반드시 필요하므로,
+              신청 버튼을 누를 때 동의를 받아 수집합니다
+            </b>
+            . 이메일은 <b className="text-ink">운영자만 조회</b>할 수 있고 게시판 등 공개 영역에 노출하지 않습니다.
+          </li>
+          <li>
+            <b className="text-ink">[선택·작성 시 동의] 개선사항 게시글</b>: 앱 개선사항 게시판에 올리는 제목·내용과 함께 입력한 앱 버전·기기 정보 — 닉네임과 함께 공개됩니다.
+          </li>
         </ul>
         <p className="mt-2 text-muted">
           비밀번호는 수집·저장하지 않습니다(소셜 로그인 및 일회용 인증코드 방식).
@@ -80,6 +91,11 @@ function Ko() {
         <ul className="list-disc space-y-1 pl-5 text-muted">
           <li>회원 식별 및 로그인 상태 유지</li>
           <li>성과 게시판 서비스 제공 (작성자 표시, 댓글, 응원)</li>
+          <li>
+            <b className="text-ink">베타테스터 운영</b>: Google Play 비공개 테스트 테스터 목록 등록,
+            테스트 참여 안내
+          </li>
+          <li>개선사항 게시판 운영 및 문의·버그 처리 답변</li>
           <li>스팸·부정 이용 방지, 문의 응대</li>
         </ul>
         <p className="mt-2 text-muted">수집한 개인정보는 위 목적 외로 이용하지 않으며, 광고 목적의 제3자 제공을 하지 않습니다.</p>
@@ -89,6 +105,11 @@ function Ko() {
         <ul className="list-disc space-y-1 pl-5 text-muted">
           <li>회원 정보: <b className="text-ink">탈퇴 시 즉시</b> 개인 식별 정보(이름, 이메일, 프로필 이미지)를 삭제합니다.</li>
           <li>게시물: 작성자가 언제든 직접 삭제할 수 있습니다. 탈퇴 시 삭제하지 않은 게시물은 "탈퇴한 회원" 명의로 남습니다(원하시면 탈퇴 전 삭제하거나 문의로 삭제 요청 가능).</li>
+          <li>
+            <b className="text-ink">베타테스터 신청 정보</b>: 신청자가 <b className="text-ink">신청을 취소하면 즉시 삭제</b>되고,
+            테스트 모집이 종료되면 등록 목적이 끝나므로 파기합니다. 회원 탈퇴 시에도 함께 삭제됩니다.
+          </li>
+          <li>개선사항 게시글: 작성자가 언제든 직접 삭제할 수 있습니다.</li>
           <li>로그인 세션: 최대 30일 후 자동 만료·삭제됩니다.</li>
         </ul>
       </section>
@@ -154,6 +175,17 @@ function En() {
         <ul className="mt-2 list-disc space-y-1 pl-5 text-muted">
           <li><b className="text-ink">[Required] Account identifiers</b>: the identifier from your social login provider (Google/Kakao/Naver), nickname, profile image, and email (if the provider shares it, or the email you enter for email login).</li>
           <li><b className="text-ink">[Optional · with consent on posting] Posted content</b>: posts, photos, routine info, comments, and cheers you publish to the community board — <b className="text-ink">collected with separate consent when you post, stored on the server, and made publicly visible.</b></li>
+          <li>
+            <b className="text-ink">[Optional · with consent on applying] Beta tester application</b>: your Google account email address and, if you enter them, your device model and a short note —{" "}
+            <b className="text-ink">
+              the Google account email is required to enrol you as a tester in Google Play closed
+              testing, so we collect it with your consent when you submit the application
+            </b>
+            . The email is <b className="text-ink">visible only to the operator</b> and is never shown in public areas.
+          </li>
+          <li>
+            <b className="text-ink">[Optional · with consent on posting] Feedback posts</b>: the title, body, app version and device you submit to the app feedback board — published together with your nickname.
+          </li>
         </ul>
         <p className="mt-2 text-muted">
           We do not collect or store passwords (we use social login and one-time verification codes).
@@ -165,6 +197,11 @@ function En() {
         <ul className="list-disc space-y-1 pl-5 text-muted">
           <li>Member identification and keeping you signed in</li>
           <li>Operating the community board (author display, comments, cheers)</li>
+          <li>
+            <b className="text-ink">Running the beta programme</b>: enrolling testers in Google Play
+            closed testing and sending participation guidance
+          </li>
+          <li>Operating the feedback board and replying to reports and inquiries</li>
           <li>Preventing spam and abuse, and answering inquiries</li>
         </ul>
         <p className="mt-2 text-muted">We do not use your data for any other purpose and do not provide it to third parties for advertising.</p>
@@ -174,6 +211,12 @@ function En() {
         <ul className="list-disc space-y-1 pl-5 text-muted">
           <li>Account info: <b className="text-ink">deleted immediately upon account withdrawal</b> (name, email, profile image).</li>
           <li>Posts: you can delete your own posts at any time. Posts left after withdrawal remain under "Withdrawn member" (you may delete them before withdrawing, or request deletion via our contact).</li>
+          <li>
+            <b className="text-ink">Beta tester applications</b>: deleted{" "}
+            <b className="text-ink">immediately when you cancel your application</b>, and discarded once the
+            testing round ends and the enrolment purpose is fulfilled. Also deleted when you withdraw your account.
+          </li>
+          <li>Feedback posts: you can delete your own posts at any time.</li>
           <li>Login sessions: automatically expire and are deleted after up to 30 days.</li>
         </ul>
       </section>

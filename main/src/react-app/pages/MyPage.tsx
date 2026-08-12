@@ -101,10 +101,10 @@ export default function MyPage({
 
       <div className="mt-4 rounded-3xl border border-line bg-card p-6">
         <a
-          href="https://keepup.keywordream.com/stories"
+          href="https://log.keywordream.com/stories"
           className="text-sm font-bold text-brand hover:underline"
         >
-          내가 활동하는 KeepUp 성과 게시판 →
+          내가 활동하는 로그챌린지 성과 게시판 →
         </a>
       </div>
 

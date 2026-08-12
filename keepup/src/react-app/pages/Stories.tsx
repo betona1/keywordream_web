@@ -202,7 +202,11 @@ export default function Stories({
                     {p.author.name}
                   </span>
                   <span className="flex items-center gap-2.5 font-bold">
-                    <span className="text-stamp">🔴 {p.cheerCount}</span>
+                    {/* 응원 = 도장. 빨간 원 이모지 대신 앱과 같은 바브바브 도장을 쓴다 */}
+                    <span className="flex items-center gap-1 text-stamp">
+                      <Stamp size={16} />
+                      {p.cheerCount}
+                    </span>
                     <span>💬 {p.commentCount}</span>
                   </span>
                 </div>

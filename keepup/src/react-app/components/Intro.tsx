@@ -72,10 +72,12 @@ export default function Intro({ onDone }: { onDone: () => void }) {
       {/* 배경 네온 글로우 — 캐릭터 뒤에서 서서히 퍼진다 */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[38%] h-[130vmin] w-[130vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        className="pointer-events-none absolute left-1/2 top-[36%] h-[92vmin] w-[92vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
         style={{
+          // 캐릭터 원본이 딥네이비 배경을 깔고 있어, 글로우가 세면 그 사각형이 드러난다.
+          // 앱과 같은 색을 쓰되 옅게 깔아 경계가 보이지 않게 한다.
           background:
-            "radial-gradient(circle, rgba(79,169,255,.34) 0%, rgba(124,92,255,.16) 45%, transparent 72%)",
+            "radial-gradient(circle, rgba(79,169,255,.20) 0%, rgba(124,92,255,.10) 48%, transparent 74%)",
           animation: "vave-glow-in 1350ms ease-out both",
         }}
       />
@@ -91,7 +93,7 @@ export default function Intro({ onDone }: { onDone: () => void }) {
               alt="로그챌린지 마스코트 바브바브"
               width={640}
               height={833}
-              className="block h-[38vh] max-h-[360px] w-auto [mask-image:radial-gradient(ellipse_62%_58%_at_50%_46%,black_62%,transparent_92%)]"
+              className="block h-[42vh] max-h-[420px] w-auto [mask-image:radial-gradient(ellipse_92%_94%_at_50%_50%,black_82%,transparent_100%)]"
               fetchPriority="high"
             />
             {/* 반짝임 — 캐릭터 주변에서 톡톡 터진다 */}

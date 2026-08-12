@@ -136,7 +136,7 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
         </div>
         <h1 className="text-center text-2xl font-extrabold tracking-tight">간편 로그인</h1>
         <p className="mt-2 text-center text-sm text-muted">
-          로그인하고 KeepUp 성과 게시판에 63일의 기록을 자랑해 보세요.
+          로그인하고 로그챌린지 성과 게시판에 63일의 기록을 자랑해 보세요.
         </p>
 
         {loginError && (
@@ -166,7 +166,7 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
             <b className="text-ink">[필수]</b> 회원 식별 정보(닉네임·프로필·이메일)의 수집·이용에
             동의합니다.{" "}
             <a
-              href="https://keepup.keywordream.com/privacy"
+              href="https://log.keywordream.com/privacy"
               target="_blank"
               rel="noreferrer"
               className="underline hover:text-ink"
@@ -265,11 +265,11 @@ export default function Login({ me, refresh }: { me: Me; refresh: () => Promise<
 
       <p className="mt-6 text-center text-xs text-muted">
         로그인하면{" "}
-        <a href="https://keepup.keywordream.com/terms" className="underline hover:text-ink">
+        <a href="https://log.keywordream.com/terms" className="underline hover:text-ink">
           이용약관
         </a>
         과{" "}
-        <a href="https://keepup.keywordream.com/privacy" className="underline hover:text-ink">
+        <a href="https://log.keywordream.com/privacy" className="underline hover:text-ink">
           개인정보처리방침
         </a>
         에 동의한 것으로 봅니다.

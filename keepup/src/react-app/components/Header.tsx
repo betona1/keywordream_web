@@ -26,8 +26,15 @@ export default function Header({
           <Link to="/stories" className="font-semibold text-muted hover:text-ink">
             성과 게시판
           </Link>
-          <Link to="/support" className="hidden font-semibold text-muted hover:text-ink sm:block">
-            문의
+          <Link to="/feedback" className="hidden font-semibold text-muted hover:text-ink sm:block">
+            개선사항
+          </Link>
+          <Link
+            to="/beta"
+            className="font-semibold text-stamp hover:text-stamp-accent"
+            title="베타테스터 모집"
+          >
+            베타 모집
           </Link>
           {!loading &&
             (me ? (

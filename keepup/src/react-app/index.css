@@ -4,14 +4,19 @@
  * brand : 인디고(#4C6EF5, 앱 시드 컬러와 동일)   stamp : 도장 인주색(시그니처)
  * night / neon : 성과 게시판 히어로 등 다크 존 전용 (main과 같은 값) */
 @theme {
-  --color-paper: #f7f8fc;
+  /* 값은 앱 lib/theme.dart(AppTheme.light) 그대로 — 바브바브 캐릭터 팔레트(2026-08-07 적용).
+   * brand = 이마 문양의 네온 블루, stamp = 눈동자·뿔털의 바이올렛(도장 = 성취). */
+  --color-paper: #f4f8ff;
   --color-card: #ffffff;
-  --color-ink: #1c2333;
-  --color-muted: #5b6472;
-  --color-line: #e4e7ee;
-  --color-brand: #274ed5;
-  --color-brand-deep: #1c3cae;
-  --color-stamp: #b32a19;
+  --color-ink: #131826;
+  --color-muted: #465166;
+  --color-line: #e1e9f8;
+  --color-brand: #2b6df6;
+  --color-brand-deep: #1f56d4;
+  --color-stamp: #7c5cff;
+  --color-stamp-accent: #a88bff;
+  --color-stamp-soft: #ede7ff;
+  --color-success: #17b7a6;
 
   --color-night: #0a1020;
   --color-night-2: #070c1a;

@@ -228,7 +228,7 @@ export default function StoryDetail({ me, mainUrl }: { me: Me; mainUrl: string }
             }`}
             title={me ? "응원 도장 찍기" : "로그인하고 도장 찍기"}
           >
-            <Stamp size={22} label="👍" className={post.myCheer ? "" : "opacity-40 grayscale"} />
+            <Stamp size={24} className={post.myCheer ? "" : "opacity-40 grayscale"} />
             도장 {post.cheerCount}
           </button>
         </div>
