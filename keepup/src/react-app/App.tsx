@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Intro from "./components/Intro";
 import Home from "./pages/Home";
 import Guide from "./pages/Guide";
 import Review from "./pages/Review";
@@ -12,11 +14,27 @@ import Terms from "./pages/Terms";
 import Support from "./pages/Support";
 import { useMe } from "./lib/useMe";
 
+/** 인트로는 홈으로 처음 들어온 세션에만 한 번 재생한다.
+ *  게시판 링크를 타고 바로 온 사람에게는 방해가 되므로 홈에서만 띄운다. */
+const INTRO_KEY = "logchallenge:intro";
+function shouldPlayIntro(): boolean {
+  try {
+    if (window.location.pathname !== "/") return false;
+    if (sessionStorage.getItem(INTRO_KEY)) return false;
+    sessionStorage.setItem(INTRO_KEY, "1");
+    return true;
+  } catch {
+    return false; // 프라이빗 모드 등에서 sessionStorage가 막혀 있으면 그냥 건너뛴다
+  }
+}
+
 export default function App() {
   const { me, loading, mainUrl, logout } = useMe();
+  const [intro, setIntro] = useState(shouldPlayIntro);
 
   return (
     <div className="flex min-h-screen flex-col">
+      {intro && <Intro onDone={() => setIntro(false)} />}
       <Header me={me} loading={loading} mainUrl={mainUrl} logout={logout} />
       <div className="flex-1">
         <Routes>

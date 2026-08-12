@@ -84,12 +84,14 @@ export default function Intro({ onDone }: { onDone: () => void }) {
         {/* ── 캐릭터: 튀어올라 등장 → 계속 통통 ── */}
         <div style={{ animation: `vave-char-in 780ms cubic-bezier(.34,1.4,.64,1) ${ms(0.02)} both` }}>
           <div className="relative" style={{ animation: "vave-hop 620ms ease-in-out 640ms infinite" }}>
+            {/* 원본에 딥네이비 배경이 깔려 있어(투명 누끼 아님) 가장자리를 마스크로 날려
+                인트로 배경에 녹인다. 안 그러면 글로우와 대비되어 사각형이 드러난다. */}
             <img
               src="/vave/full.webp"
               alt="로그챌린지 마스코트 바브바브"
               width={640}
               height={833}
-              className="block h-[34vh] max-h-[300px] w-auto drop-shadow-[0_18px_40px_rgba(0,0,0,.55)]"
+              className="block h-[38vh] max-h-[360px] w-auto [mask-image:radial-gradient(ellipse_62%_58%_at_50%_46%,black_62%,transparent_92%)]"
               fetchPriority="high"
             />
             {/* 반짝임 — 캐릭터 주변에서 톡톡 터진다 */}

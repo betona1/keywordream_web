@@ -394,17 +394,17 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ── 63일 규칙 + 게시판 CTA ──────────────────────────────── */}
+      {/* ── 마무리 CTA ──────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-4 pb-24">
         <div className="rounded-3xl bg-brand px-8 py-12 text-center text-white sm:px-16">
           <div className="mb-6 flex justify-center">
             <Stamp size={80} className="border-white/70 text-white" />
           </div>
-          <h2 className="text-2xl font-extrabold tracking-tight">왜 63일일까요?</h2>
+          <h2 className="text-2xl font-extrabold tracking-tight">오늘 하나만 해내면 됩니다</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/85">
-            습관이 몸에 붙는 데 평균 66일이 걸린다는 연구가 있습니다. 로그챌린지는 9주, 63일을 한
-            시즌으로 봅니다. 하루하루의 도장이 모여 시즌이 끝나면 — 그 기록이 곧 다음 시즌을 시작할
-            이유가 됩니다.
+            기간은 30일부터 2년까지 직접 정합니다. 매일 쌓는 적립형이든 주 단위로 확인하는
+            결과형이든, 오늘 도장 하나를 찍는 것부터 시작하세요. 쌓인 도장이 곧 다음 날의 이유가
+            됩니다.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

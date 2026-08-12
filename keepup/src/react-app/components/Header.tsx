@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Stamp from "./Stamp";
+import Logo from "./Logo";
 import { loginUrl, type Me } from "../lib/api";
 
 export default function Header({
@@ -16,12 +16,8 @@ export default function Header({
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-card/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2" aria-label="로그챌린지 (Log Challenge) 홈">
-          <Stamp size={30} label="UP!" />
-          <span className="text-lg font-extrabold tracking-tight">
-            <span className="text-stamp">Log</span>
-            <span className="text-brand">Challenge</span>
-          </span>
+        <Link to="/" aria-label="로그챌린지 (Log Challenge) 홈">
+          <Logo size={30} />
         </Link>
         <nav className="flex items-center gap-4 text-sm">
           <Link to="/guide" className="hidden font-semibold text-muted hover:text-ink sm:block">
