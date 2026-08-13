@@ -99,10 +99,16 @@ export default function MyPage({
         {msg && <p className="mt-3 text-sm font-semibold text-brand">{msg}</p>}
       </div>
 
-      <div className="mt-4 rounded-3xl border border-line bg-card p-6">
+      <div className="mt-4 space-y-3 rounded-3xl border border-line bg-card p-6">
+        <a
+          href="https://log.keywordream.com/records"
+          className="block text-sm font-bold text-brand hover:underline"
+        >
+          내 습관 기록 보기 (앱에서 올린 도장·사진) →
+        </a>
         <a
           href="https://log.keywordream.com/stories"
-          className="text-sm font-bold text-brand hover:underline"
+          className="block text-sm font-bold text-brand hover:underline"
         >
           내가 활동하는 로그챌린지 성과 게시판 →
         </a>

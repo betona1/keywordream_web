@@ -26,6 +26,11 @@ export default function Header({
           <Link to="/stories" className="font-semibold text-muted hover:text-ink">
             성과 게시판
           </Link>
+          {me && (
+            <Link to="/records" className="font-semibold text-muted hover:text-ink">
+              내 기록
+            </Link>
+          )}
           <Link to="/feedback" className="hidden font-semibold text-muted hover:text-ink sm:block">
             개선사항
           </Link>
