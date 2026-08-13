@@ -249,13 +249,26 @@ postRoutes.post("/posts", requireLogin(), async (c) => {
     .returning({ id: posts.id });
   const postId = inserted[0].id;
 
-  for (let i = 0; i < files.length; i++) {
-    const f = files[i];
-    const key = `stories/${postId}/${crypto.randomUUID()}.${IMAGE_EXT[f.type]}`;
-    await c.env.MEDIA.put(key, f.stream(), {
-      httpMetadata: { contentType: f.type },
-    });
-    await db.insert(postImages).values({ postId, fileKey: key, sort: i });
+  // 이미지 업로드가 중간에 실패하면 글까지 되돌린다 — 이미지 없는 글이 남아
+  // 재시도 시 중복 게시되는 것을 막는다
+  const uploadedKeys: string[] = [];
+  try {
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const key = `stories/${postId}/${crypto.randomUUID()}.${IMAGE_EXT[f.type]}`;
+      await c.env.MEDIA.put(key, f.stream(), {
+        httpMetadata: { contentType: f.type },
+      });
+      uploadedKeys.push(key);
+      await db.insert(postImages).values({ postId, fileKey: key, sort: i });
+    }
+  } catch {
+    await Promise.allSettled([
+      ...uploadedKeys.map((key) => c.env.MEDIA.delete(key)),
+      db.delete(postImages).where(eq(postImages.postId, postId)),
+    ]);
+    await db.delete(posts).where(eq(posts.id, postId));
+    return c.json(err("image_upload_failed"), 500);
   }
 
   return c.json(ok({ id: postId }));
