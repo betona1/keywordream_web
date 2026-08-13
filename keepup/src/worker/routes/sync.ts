@@ -17,6 +17,10 @@ const MAX_BYTES = 60 * 1024 * 1024; // 60MB
 
 const keyFor = (userId: number) => `sync/${userId}/backup.zip`;
 
+/** '가져오기 요청'의 수명 — 상대 기기가 이 시간 안에 앱을 열지 않으면 자동 소멸 */
+const REQUEST_TTL_SECONDS = 15 * 60;
+const requestKeyFor = (userId: number) => `syncreq:${userId}`;
+
 export const syncRoutes = new Hono<{ Bindings: Env; Variables: { user: AuthedUser } }>();
 
 /** 내 백업 정보 — 언제 올렸고 얼마나 큰지 */
@@ -68,5 +72,42 @@ syncRoutes.get("/sync", requireLogin(), async (c) => {
 /** 삭제 — 클라우드에 둔 기록만 지운다 (기기 안 기록은 그대로) */
 syncRoutes.delete("/sync", requireLogin(), async (c) => {
   await c.env.MEDIA.delete(keyFor(c.get("user").id));
+  return c.json(ok({ deleted: true }));
+});
+
+// ── 기기 간 '가져오기 요청' ─────────────────────────────────────────
+// 웹(또는 다른 기기)에서 요청을 남겨 두면, 기록이 있는 기기의 앱이 열릴 때
+// 승인 안내를 띄우고 [보내기]로 업로드한다. 푸시 서버 없이 폴링으로 동작.
+// 같은 계정 안에서만 오가는 신호라 개인정보는 clientId(무작위 기기 식별자)뿐이다.
+
+/** 요청 남기기 — {clientId}: 요청을 보낸 기기 (자기 자신에게 승인 창이 뜨지 않게) */
+syncRoutes.post("/sync/request", requireLogin(), async (c) => {
+  const body = (await c.req.json().catch(() => null)) as { clientId?: string } | null;
+  const clientId = typeof body?.clientId === "string" ? body.clientId.slice(0, 64) : "";
+  if (!clientId) return c.json(err("invalid_input"), 400);
+  const requestedAt = new Date().toISOString();
+  await c.env.SESSIONS.put(
+    requestKeyFor(c.get("user").id),
+    JSON.stringify({ clientId, requestedAt }),
+    { expirationTtl: REQUEST_TTL_SECONDS },
+  );
+  return c.json(ok({ requestedAt, ttlSeconds: REQUEST_TTL_SECONDS }));
+});
+
+/** 대기 중인 요청 확인 — 앱이 열릴 때 폴링한다 */
+syncRoutes.get("/sync/request", requireLogin(), async (c) => {
+  const raw = await c.env.SESSIONS.get(requestKeyFor(c.get("user").id));
+  if (!raw) return c.json(ok({ pending: false }));
+  try {
+    const req = JSON.parse(raw) as { clientId: string; requestedAt: string };
+    return c.json(ok({ pending: true, ...req }));
+  } catch {
+    return c.json(ok({ pending: false }));
+  }
+});
+
+/** 요청 지우기 — 보낸 쪽 취소, 받은 쪽 거절, 업로드 완료 후 정리 */
+syncRoutes.delete("/sync/request", requireLogin(), async (c) => {
+  await c.env.SESSIONS.delete(requestKeyFor(c.get("user").id));
   return c.json(ok({ deleted: true }));
 });
