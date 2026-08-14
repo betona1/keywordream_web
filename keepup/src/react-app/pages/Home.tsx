@@ -187,6 +187,45 @@ export default function Home() {
         <div className="h-px bg-gradient-to-r from-transparent via-neon/55 to-transparent" />
       </section>
 
+      {/* ── 40초 소개 영상 (다크) ───────────────────────────────── */}
+      <section className="relative isolate overflow-hidden bg-night-2 text-white">
+        <NightBackdrop />
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 lg:grid-cols-[1fr_auto] lg:py-20">
+          <div className="text-center lg:text-left">
+            <p className="mb-3 text-xs font-bold tracking-[0.2em] text-neon-2">40 SECONDS TOUR</p>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              40초로 미리 보는 로그챌린지
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/65 lg:mx-0">
+              다섯 가지 인증, 마감 3시간·1시간·30분 전 세 번의 알람, 도장으로 채워지는 달력,
+              그리고 도장을 이어가면 <b className="font-bold text-white">5단계까지 진화하는 바브바브</b>까지
+              — 핵심만 40초에 담았습니다.
+            </p>
+            <a
+              href="https://www.youtube.com/shorts/4p2ogU335ZY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-block rounded-2xl border border-white/20 px-6 py-3.5 text-sm font-bold text-white/85 transition hover:border-neon hover:text-white"
+            >
+              ▶ YouTube에서 보기
+            </a>
+          </div>
+          <div className="mx-auto w-[270px] sm:w-[300px]">
+            <div className="overflow-hidden rounded-[2rem] border-[7px] border-[#171a20] bg-[#171a20] shadow-[0_30px_66px_-22px_rgba(10,16,32,.75)]">
+              <iframe
+                src="https://www.youtube.com/embed/4p2ogU335ZY"
+                title="로그챌린지 40초 소개 영상"
+                className="block aspect-[9/16] w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="h-px bg-gradient-to-r from-transparent via-stamp/60 to-transparent" />
+      </section>
+
       {/* ── 인증 5종 (라이트) ───────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="text-center">
