@@ -401,7 +401,7 @@ export default function Home() {
           <div className="rounded-3xl border border-stamp/30 bg-white/[0.03] p-8 sm:p-12">
             <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
               <div className="shrink-0">
-                <Stamp size={88} level={2} check />
+                <Stamp size={88} level={4} check />
               </div>
               <div className="flex-1">
                 <p className="mb-2 text-xs font-bold tracking-[0.2em] text-stamp-accent">
@@ -447,10 +447,32 @@ export default function Home() {
 
       {/* ── 마무리 CTA ──────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-4 pb-24">
-        <div className="rounded-3xl bg-brand px-8 py-12 text-center text-white sm:px-16">
-          <div className="mb-6 flex justify-center">
-            <Stamp size={80} level={3} check />
+        <div className="rounded-3xl bg-brand px-6 py-12 text-center text-white sm:px-16">
+          {/* 바브바브 진화 — 1주 → 2주 → 3주 → 4주를 지나며 5단계 코스믹 마스터로 */}
+          <div className="mb-3 flex items-center justify-center gap-1.5 sm:gap-2.5">
+            {(
+              [
+                [1, 34],
+                [2, 42],
+                [3, 50],
+                [4, 62],
+                [5, 84],
+              ] as const
+            ).map(([lv, s], i) => (
+              <span key={lv} className="flex items-center gap-1.5 sm:gap-2.5">
+                {i > 0 && (
+                  <span className="flex flex-col items-center leading-none text-white/55">
+                    <span className="text-sm font-black">→</span>
+                    <span className="mt-0.5 text-[10px] font-bold">{i}주</span>
+                  </span>
+                )}
+                <Stamp size={s} level={lv} check={lv === 5} />
+              </span>
+            ))}
           </div>
+          <p className="mb-7 text-xs font-semibold text-white/70">
+            도장을 이어갈수록 바브바브가 진화합니다 — 마지막은 코스믹 마스터 🌌
+          </p>
           <h2 className="text-2xl font-extrabold tracking-tight">오늘 하나만 해내면 됩니다</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/85">
             기간은 30일부터 2년까지 직접 정합니다. 매일 쌓는 적립형이든 주 단위로 확인하는

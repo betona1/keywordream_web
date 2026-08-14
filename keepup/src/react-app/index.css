@@ -135,6 +135,24 @@
   }
 }
 
+/* 5단계 코스믹 도장 — 오로라 링 회전 + 별 반짝임 (components/Stamp.tsx) */
+@keyframes vave-aurora-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes vave-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

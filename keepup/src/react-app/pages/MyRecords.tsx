@@ -47,9 +47,11 @@ function fmtDateTime(iso: string): string {
   });
 }
 
-/** 앱과 같은 규칙 — 시작 후 1주=1단계, 2주간=2단계, 3주후=3단계 */
-function stampLevel(startDate: string): 1 | 2 | 3 {
+/** 앱과 같은 규칙(Routine.stampLevelOn) — 1단계 1주 → 2단계 2주 → 3단계 3주 → 4단계 4주 → 5단계 */
+function stampLevel(startDate: string): 1 | 2 | 3 | 4 | 5 {
   const days = Math.floor((Date.now() - new Date(startDate).getTime()) / 86400000);
+  if (days >= 70) return 5;
+  if (days >= 42) return 4;
   if (days >= 21) return 3;
   if (days >= 7) return 2;
   return 1;
@@ -59,6 +61,8 @@ const LEVEL_BADGE: Record<number, { label: string; cls: string }> = {
   1: { label: "1단계", cls: "bg-paper text-muted border border-line" },
   2: { label: "⭐ 2단계", cls: "bg-gradient-to-r from-stamp to-neon text-white" },
   3: { label: "👑 3단계", cls: "bg-gradient-to-r from-amber-400 to-orange-400 text-white" },
+  4: { label: "⚡ 4단계", cls: "bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 text-white" },
+  5: { label: "🌌 5단계", cls: "bg-gradient-to-r from-stamp via-sky-400 to-violet-400 text-white" },
 };
 
 export default function MyRecords({ me, loading, mainUrl }: { me: Me; loading: boolean; mainUrl: string }) {
